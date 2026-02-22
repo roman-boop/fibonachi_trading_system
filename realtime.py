@@ -116,14 +116,13 @@ class BingxClient:
             "side": side_param,
             "positionSide": positionSide,
             "type": "MARKET",
-            "quantity": str(qty),
-            "recvWindow": "5000",
+            "quantity": (qty),
             'timestamp': int(time.time() * 1000)
         }
         if stop is not None:
             params["stopLoss"] = json.dumps({
                 "type": "STOP_MARKET",
-                "stopPrice": str(stop),
+                "stopPrice": (stop),
                 "workingType": "MARK_PRICE"
             })
         return self.send_request("POST", "/openApi/swap/v2/trade/order", params)
@@ -146,8 +145,7 @@ class BingxClient:
                 "side": side,
                 "positionSide": pos['positionSide'],
                 "type": "MARKET",
-                "quantity": str(qty),
-                "recvWindow": "5000",
+                "quantity": (qty),
                 'timestamp': int(time.time() * 1000)
             }
             resp = self.send_request("POST", "/openApi/swap/v2/trade/order", params)
@@ -471,4 +469,5 @@ if __name__ == "__main__":
             break
         except Exception as e:
             logging.error(f"Ошибка в главном цикле: {e}")
+
             time.sleep(30)
